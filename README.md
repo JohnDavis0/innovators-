@@ -1,6 +1,6 @@
 ![StackUp Banner]([https://tinkerhub.frappe.cloud/files/stackup%20banner.jpeg])
-# Project Name
-Long Description about project. This project do that. This project is awesome...
+# Contact Manager
+A simple and efficient contact storage solution.
 ## Team members
 1. John Davis   ( https://github.com/JohnDavis0 )
 2. Alan Davis C ( https://github.com/alandavis2 )
