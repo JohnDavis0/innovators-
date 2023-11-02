@@ -2,10 +2,11 @@
 # Project Name
 Long Description about project. This project do that. This project is awesome...
 ## Team members
-1. Name [Embed personal github URL]
-2. Name [Embed perosnal github URL]
+1. John Davis   ( https://github.com/JohnDavis0 )
+2. Alan Davis C ( https://github.com/alandavis2 )
+3. Jomon Joji   ( https://github.com/jomon25 )
 ## Team Id
-Team id here
+innovators-
 ## Link to product walkthrough
 [link to video]
 ## How it Works ?
