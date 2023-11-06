@@ -1,5 +1,15 @@
 /* registration.css */
 
+
+.center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-image: url('https://wallpaperaccess.com/full/1567679.jpg');
+  background-size: cover;
+}
+
 .registration-form {
     max-width: 300px;
     margin: 0 auto;
@@ -18,4 +28,4 @@
     background-color: #007bff;
     color: #fff;
   }
-  
+

@@ -2,6 +2,8 @@
 
 import React, { useState } from 'react';
 import axios from 'axios'; // Import Axios
+import './Loginpage.css';
+
 // ...
 
 function Registration() {
