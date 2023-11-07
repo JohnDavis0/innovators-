@@ -1,6 +1,6 @@
 import React from "react";
 import App from "../../App";
-function contactlist() {
+let contactlist = ()  =>{
     return(
         <div>
             <h2>contactlist</h2>
