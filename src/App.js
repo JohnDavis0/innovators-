@@ -19,14 +19,7 @@ function App() {
           <Route path={'/'} element={<Navigate to={'/login'} />} />
           <Route path={'/login'} element={<Login />} /> {/* Add this line */}
           <Route path={'/registration'} element={<Registration />} />
-<<<<<<< HEAD
-          <Route path={'/addcontact'} element = {<addcontact />} />
-          <Route path={'/contactlist'} element = {<contactlist />} />
-          <Route path={'/editcontactlist'} element = {<editcontactlist />} />
-          <Route path={'/viewcontact'} element = {<viewcontact />} />
-=======
           
->>>>>>> f5a94f377b6c8ff956ad07689ed2dd097edaffa0
           {/* Other routes for your contact manager */}
         </Routes>
       </React.Fragment>
