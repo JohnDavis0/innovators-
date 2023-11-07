@@ -55,3 +55,35 @@
 
 /* Additional styling for other form elements can be added here */
 
+<<<<<<< HEAD
+=======
+
+.center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-image: url('https://wallpaperaccess.com/full/1567679.jpg');
+  background-size: cover;
+}
+
+.registration-form {
+    max-width: 300px;
+    margin: 0 auto;
+    padding: 20px;
+  }
+  
+  .registration-form input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+  }
+  
+  .registration-form button {
+    width: 100%;
+    padding: 10px;
+    background-color: #007bff;
+    color: #fff;
+  }
+
+>>>>>>> f5a94f377b6c8ff956ad07689ed2dd097edaffa0

@@ -2,6 +2,8 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios'; // Import Axios
+import './Loginpage.css';
+
 // ...
 import './registrationpage.css';
 
