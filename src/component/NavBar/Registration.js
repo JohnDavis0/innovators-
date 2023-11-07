@@ -1,8 +1,9 @@
 // Registration.js
-
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import axios from 'axios'; // Import Axios
 // ...
+import './registrationpage.css';
 
 function Registration() {
   const [formData, setFormData] = useState({
