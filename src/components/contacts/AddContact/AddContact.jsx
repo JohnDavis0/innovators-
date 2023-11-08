@@ -12,10 +12,6 @@ let AddContact = () => {
       name: "",
       phone: "",
       email: "",
-      company: "",
-      job: "",
-      address: "",
-      website: "",
     },
     errorMessage: "",
   });
@@ -91,50 +87,6 @@ dataSubmission()
                     type="email"
                     className="form-control"
                     placeholder="Email"
-                  />
-                </div>
-                <div className="mb-2">
-                  <input
-                    required ={true}
-                    name="company"
-                    value={contact.companyName}
-                    onChange={updateInput}
-                    type="text"
-                    className="form-control"
-                    placeholder="Company"
-                  />
-                </div>
-                <div className="mb-2">
-                  <input
-                    required ={true}
-                    name="job"
-                   value={contact.companyRole}
-                   onChange={updateInput}
-                    type="text"
-                    className="form-control"
-                    placeholder="Job"
-                  />
-                </div>
-                <div className="mb-2">
-                  <input
-                  required ={true}
-                  name="address"
-                  value={contact.adddress}
-                  onChange={updateInput}
-                    type="text"
-                    className="form-control"
-                    placeholder="Address"
-                  />
-                </div>
-                <div className="mb-2">
-                  <input
-                    required ={true}
-                    name="website"
-                    value={contact.website}
-                    onChange={updateInput}
-                    type="text"
-                    className="form-control"
-                    placeholder="Website"
                   />
                 </div>
 
