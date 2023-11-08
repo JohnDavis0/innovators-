@@ -34,7 +34,7 @@ function LoginPage() {
   }
 
   const handleRegistration = () => {
-    navigate('/Registration');
+    navigate('/contacts/login/registration');
   }
 
   return (
