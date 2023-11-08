@@ -7,6 +7,8 @@ import AddContact from "./components/contacts/AddContact/AddContact";
 import ViewContact from "./components/contacts/ViewContact/ViewContact";
 import EditContact from "./components/contacts/EditContact/EditContact";
 import Spinner from "./components/Spinner/Spinner";
+import Registration from "./components/NavBar/Registration";
+import LoginPage from "./components/NavBar/LoginPage";
 
 
 let App = () => {
@@ -19,6 +21,8 @@ let App = () => {
         <Route path={"/contacts/add"} element={<AddContact/>}/>
         <Route path={"/contacts/view/:contactId"} element={<ViewContact/>}/>
         <Route path={"/contacts/edit/:contactId"} element={<EditContact/>}/>
+        <Route path={"/contacts/login"} element={<LoginPage/>}/>
+        <Route path={"/contacts/registration"} element={<Registration/>}/>
       </Routes>
     </React.Fragment>
   );
