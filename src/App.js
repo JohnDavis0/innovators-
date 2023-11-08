@@ -27,4 +27,21 @@ function App() {
   );
 }
 
+
+let App = () => {
+  return (
+    <React.Fragment>
+      <NavBar />
+      <Routes>
+        <Route path={"/"} element={<Navigate to={'/contacts/list'}/>}/>
+        <Route path={"/NavBar/login"} element={<Login />} /> {/* Add this line */}
+        <Route path={"/contacts/list"} element={<ContactList/>}/>
+        <Route path={'/NavBar/registration'} element={<Registration />} />
+        <Route path={"/contacts/add"} element={<AddContact/>}/>
+        <Route path={"/contacts/view/:contactId"} element={<ViewContact/>}/>
+        <Route path={"/contacts/edit/:contactId"} element={<EditContact/>}/>
+      </Routes>
+    </React.Fragment>
+  );
+};
 export default App;
