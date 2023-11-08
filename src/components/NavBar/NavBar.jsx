@@ -11,7 +11,7 @@ let NavBar = ()=>{
             <nav class="navbar navbar-expand-lg bg-body-tertiary">
                 <div class="container-md">
                     
-                <a class="navbar-brand" href="#"><center>CONTACT MANAGER</center></a>
+                <a class="navbar-brand" href="/contacts/list"><center>CONTACT MANAGER</center></a>
                     
                 </div>
             </nav>

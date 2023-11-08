@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import {ContactService} from "../../../utils";
 import Spinner from "../../Spinner/Spinner.js";
-
+import './contactlist.css';
 let ContactList = () => {
 
   let [query, setQuery] = useState({
@@ -89,7 +89,7 @@ let ContactList = () => {
 
   return (
     <React.Fragment>
-      <section className="contact-search p-3">
+      <section className="contact-search p-3" className="contact-list">
         <div className="container">
           <div className="grid">
             <div className="row">
