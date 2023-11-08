@@ -14,10 +14,6 @@ let EditContact = () => {
       name: "",
       phone: "",
       email: "",
-      company: "",
-      job: "",
-      address: "",
-      website: "",
       },
       errorMessage:''
   });
@@ -130,50 +126,8 @@ let EditContact = () => {
                     placeholder="Email"
                   />
                 </div>
-                <div className="mb-2">
-                  <input
-                    required="true"
-                    name="company"
-                    value={contact.company.name}
-                    onChange={updateInput}
-                    type="text"
-                    className="form-control"
-                    placeholder="Company"
-                  />
-                </div>
-                <div className="mb-2">
-                  <input
-                    required="true"
-                    name="job"
-                    value={contact.company.catchPhrase}
-                    onChange={updateInput}
-                    type="text"
-                    className="form-control"
-                    placeholder="Job"
-                  />
-                </div>
-                <div className="mb-2">
-                  <input
-                    required="true"
-                    name="address"
-                    value= {contact.address.city}
-                    onChange={updateInput}
-                    type="text"
-                    className="form-control"
-                    placeholder="Address"
-                  />
-                </div>
-                <div className="mb-2">
-                  <input
-                  required="true"
-                  name="website"
-                  value={contact.website}
-                  onChange={updateInput}
-                    type="text"
-                    className="form-control"
-                    placeholder="Website"
-                  />
-                </div>
+                
+                
 
               
 
