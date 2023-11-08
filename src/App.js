@@ -7,6 +7,8 @@ import AddContact from "./components/contacts/AddContact/AddContact";
 import ViewContact from "./components/contacts/ViewContact/ViewContact";
 import EditContact from "./components/contacts/EditContact/EditContact";
 import Spinner from "./components/Spinner/Spinner";
+import login from "./components/NavBar/Login"
+import Registration from "./components/NavBar/Registration";
 
 
 let App = () => {
@@ -15,7 +17,9 @@ let App = () => {
       <NavBar />
       <Routes>
         <Route path={"/"} element={<Navigate to={'/contacts/list'}/>}/>
+        <Route path={"/NavBar/login"} element={<Login />} /> {/* Add this line */}
         <Route path={"/contacts/list"} element={<ContactList/>}/>
+        <Route path={'/NavBar/registration'} element={<Registration />} />
         <Route path={"/contacts/add"} element={<AddContact/>}/>
         <Route path={"/contacts/view/:contactId"} element={<ViewContact/>}/>
         <Route path={"/contacts/edit/:contactId"} element={<EditContact/>}/>

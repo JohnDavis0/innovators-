@@ -1,0 +1,84 @@
+.center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-image: url('https://wallpaperaccess.com/full/1567679.jpg');
+  background-size: cover;
+}
+
+.form {
+  width: 300px;
+  background: transparent;
+  padding: 30px;
+  border-radius: 5px;
+  box-shadow: 0px 0px 10px 0px #0000000f;
+}
+
+#heading {
+  text-align: center;
+  margin-bottom: 20px;
+  font-size: 30px;
+  font-weight: bold;
+  color: #ffffff;
+
+}
+
+.field {
+  position: relative;
+  margin-bottom: 20px;
+}
+
+.input-icon {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  left: 10px;
+}
+
+.login-input {
+  width: 100%;
+  padding: 10px 10px 10px 30px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+}
+
+.btn {
+  display: flex;
+  justify-content: space-between;
+}
+
+.button1, 
+.button2 {
+  padding: 10px 20px;
+  border-radius: 5px;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.button1 {
+  background-color: #007bff;
+  color: white;
+}
+
+.button1:hover {
+  background-color: #0056b3;
+}
+
+.button2 {
+  background-color: #6c757d;
+  color: white;
+}
+
+.button2:hover {
+  background-color: #5a6268;
+}
+
+.button3 {
+  background-color: #6c757d;
+  color: white;
+  padding: 10px 20px;
+  border-radius: 5px;
+  width: 100%;
+}
