@@ -5,7 +5,7 @@ let NavBar = ()=>{
         <React.Fragment>
             <nav class="navbar navbar-dark bg-dark navbar-expand-sm">
                 <div class="container">
-                <a class="navbar-brand" href="#">INNOVERTERS</a>
+                <a class="navbar-brand" href="/contacts/about">INNOVERTERS</a>
                 </div>
             </nav>
             <nav class="navbar navbar-expand-lg bg-body-tertiary">
