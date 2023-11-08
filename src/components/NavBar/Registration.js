@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios'; // Import Axios
 // ...
-import './registrationpage.css';
+import './Loginpage.css';
 
 function Registration() {
   const [formData, setFormData] = useState({
@@ -26,32 +26,45 @@ function Registration() {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
+    <div className="center">
+    <form class="form" onSubmit={handleSubmit}>
       {/* Your registration form fields go here */}
-      <input
-        type="text"
-        name="username"
-        value={formData.username}
-        onChange={(e) => setFormData({ ...formData, username: e.target.value })}
-        placeholder="Username"
-      />
-      <input
-        type="email"
-        name="email"
-        value={formData.email}
-        onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-        placeholder="Email"
-      />
-      <input
-        type="password"
-        name="password"
-        value={formData.password}
-        onChange={(e) => setFormData({ ...formData, password: e.target.value })}
-        placeholder="Password"
-      />
+
+
+      <p id="heading">Registration</p>
+      <div class="field">
+        <input
+          type="text"
+          name="username"
+          value={formData.username}
+          onChange={(e) => setFormData({ ...formData, username: e.target.value })}
+          placeholder="Username"
+        />
+      </div>
+      <div class="field">
+        <input
+          type="email"
+          name="email"
+          value={formData.email}
+          onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+          placeholder="Email"
+        />
+      </div>
+      <div class="field">
+        <input
+          type="password"
+          name="password"
+          value={formData.password}
+          onChange={(e) => setFormData({ ...formData, password: e.target.value })}
+          placeholder="Password"
+        />
+      </div>
       {/* Add other registration fields here */}
-      <button type="submit">Register</button>
+      <div class="btn">
+        <button type="submit">Register</button>
+      </div>
     </form>
+  </div>
   );
 }
 
