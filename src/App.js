@@ -22,7 +22,7 @@ let App = () => {
         <Route path={"/contacts/view/:contactId"} element={<ViewContact/>}/>
         <Route path={"/contacts/edit/:contactId"} element={<EditContact/>}/>
         <Route path={"/contacts/login"} element={<LoginPage/>}/>
-        <Route path={"/contacts/registration"} element={<Registration/>}/>
+        <Route path={"/contacts/login/registration"} element={<Registration/>}/>
       </Routes>
     </React.Fragment>
   );
