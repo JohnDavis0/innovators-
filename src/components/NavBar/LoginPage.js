@@ -51,6 +51,9 @@ function LoginPage() {
         const userData = await fetchUserData(users.id);
         navigate('/contacts/list', {state:{userData}});
         console.log('Fetched UserData:', userData);
+
+        
+
       } else {
         alert('Login failed. Please check your username and password.');
       }

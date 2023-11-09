@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState , useEffect} from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { ContactService } from "../../../utils";
 import supabase from "../../../backend/supabase.js";
@@ -9,6 +9,7 @@ let AddContact = () => {
   let [state, setState] = useState({
     loading: false,
     contact: {
+      id:1,
       name: "",
       phone: "",
       email: "",

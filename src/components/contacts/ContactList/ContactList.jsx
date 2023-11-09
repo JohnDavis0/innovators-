@@ -46,7 +46,7 @@ let ContactList = () => {
       let { error } = await supabase
         .from('UserData')
         .delete()
-        .eq('id', contactId);
+        .eq('table_id', contactId);
       if (error) {
         throw new Error(error.message);
       }
@@ -181,7 +181,7 @@ let ContactList = () => {
                       </Link>
                       <button
                         className="btn btn-danger my-1"
-                        onClick={() => clickDelete(contact.id, contact.name)}
+                        onClick={() => clickDelete(contact.table_id)}
                       >
                         <i className="fa fa-trash" />
                       </button>
