@@ -21,10 +21,6 @@ function LoginPage() {
 }
   };
   useEffect(() => {
-    if (userData) {
-    // Navigate to the contacts list page.
-    navigate('/contacts/list', { state: { userData } });
-    }
     }, [userData]);
 
   const handleLogin = async (e) => {
