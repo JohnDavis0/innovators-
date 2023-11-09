@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './Loginpage.css'; 
-import './Registration.js';
 import supabase from '../../backend/supabase.js';
 
 function LoginPage() {
@@ -9,19 +8,48 @@ function LoginPage() {
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
 
+  const fetchUserData = async (userId) => {
+    try {
+      const { data, error } = await supabase
+        .from('UserData')
+        .select('*')
+        .eq('user_id', userId); // Assuming there's a column 'user_id' in 'UserData' linking to 'UserAuth' id
+
+      if (error) {
+        console.error(error);
+        return null;
+      }
+
+      return data;
+    } catch (error) {
+      console.error(error);
+      return null;
+    }
+  };
+  
   const handleLogin = async (e) => {
     e.preventDefault();
-  
+
     try {
-      const { user, error } = await supabase.auth.signIn({
-        email: username, // You can use the username as the email for login
-        password,
-      });
-  
+      // Check if the user with the provided username and password exists in the 'UserAuth' table
+      const { data: users, error } = await supabase
+        .from('UserAuth')
+        .select('*')
+        .eq('username', username)
+        .eq('password', password)
+        .single();
+
       if (error) {
-        alert('Login failed. Please check your username and password.');
+        alert('An error occurred while checking credentials.');
+        console.error(error);
+        return;
+      }
+
+      if (users) {
+        alert('Login successful!'); 
+        navigate('');
       } else {
-        alert('Login successful!'); // You can also redirect the user to another page.
+        alert('Login failed. Please check your username and password.');
       }
     } catch (error) {
       console.error(error);
