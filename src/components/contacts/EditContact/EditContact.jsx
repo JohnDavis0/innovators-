@@ -17,39 +17,7 @@ let EditContact = () => {
     errorMessage: '',
   });
 
-  useEffect(() => {
-    const asyncFetchContact = async () => {
-      try {
-        setState({ ...state, loading: true });
-
-        let { data, error } = await supabase
-          .from('UserData')
-          .select('*')
-          .eq('id', contactId)
-          .single();
-
-        if (error) {
-          throw new Error(error.message);
-        }
-
-        setState({
-          ...state,
-          loading: false,
-          contact: data,
-        });
-      } catch (error) {
-        setState({
-          ...state,
-          loading: false,
-          errorMessage: error.message,
-        });
-      }
-    };
-
-    asyncFetchContact();
-  }, [contactId]);
-
-  let updateInput = (event) => {
+    let updateInput = (event) => {
     setState({
       ...state,
       contact: {

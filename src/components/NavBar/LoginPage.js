@@ -11,22 +11,21 @@ function LoginPage() {
   const fetchUserData = async (userId) => {
     try {
       const { data, error } = await supabase
-        .from('UserData')
-        .select('*')
-        .eq('id', userId)
-        .single();
+      .from('UserData')
+      .eq('id', userId)
+      .single();
   
-      if (error) {
-        console.error(error);
-        return null;
-      }
-  
-      
+      return data;
     } catch (error) {
-      console.error(error);
-      return null;
-    }
+       throw new Error('An error occurred while fetching user data.');
+}
   };
+  useEffect(() => {
+    if (userData) {
+    // Navigate to the contacts list page.
+    navigate('/contacts/list', { state: { userData } });
+    }
+    }, [userData]);
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -50,7 +49,7 @@ function LoginPage() {
         alert('Login successful!'); 
         const userData = await fetchUserData(users.id);
         navigate('/contacts/list', {state:{userData}});
-        console.log('Fetched UserData:', userData);
+        
 
         
 
