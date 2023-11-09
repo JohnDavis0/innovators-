@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import axios from 'axios';
 import './Loginpage.css'; 
 import './Registration.js';
 import supabase from '../../backend/supabase.js';
@@ -30,11 +29,6 @@ function LoginPage() {
     }
   };
   
-  
-
-  const handleRegistration = () => {
-    navigate('/contacts/login/registration');
-  }
 
   return (
     <div className="center" >

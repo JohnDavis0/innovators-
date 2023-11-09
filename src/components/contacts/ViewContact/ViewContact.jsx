@@ -1,42 +1,50 @@
 import React, { useEffect, useState } from 'react';
 import { Link, useParams } from "react-router-dom";
-import { ContactService } from '../../../utils';
+import supabase from "../../../backend/supabase.js";
 import Spinner from '../../Spinner/Spinner';
 
-let ViewContact = () =>   {
+let ViewContact = () => {
+  let { contactId } = useParams();
 
-    let {contactId} = useParams();
+  let [state, setState] = useState({
+    loading: false,
+    contact: {},
+    errorMessage: "",
+  });
 
-    let [state, setState] = useState({
-       loading: false,
-       contact : {},
-       errorMessage :''
-    });
+  useEffect(() => {
+    const asyncFetchContact = async () => {
+      try {
+        setState({ ...state, loading: true });
 
-    useEffect(() => {
-      const asyncFetchDailyData = async () => {
-        try{
-          setState({...state, loading: true});
-          let response = await ContactService.getContact(contactId);
-         setState({
-            ...state, 
-            loading:false,
-            contact : response.data
-         });
+        let { data, error } = await supabase
+          .from('UserData')
+          .select('*')
+          .eq('id', contactId)
+          .single();
 
-        }catch(error){
-
-          setState({
-            ...state, 
-            loading:false,
-            errorMessage: error.message
-         });
+        if (error) {
+          throw new Error(error.message);
         }
-      }
-        asyncFetchDailyData()
-    }, [contactId]);
 
-    let { loading, contact, errorMessage} = state;
+        setState({
+          ...state,
+          loading: false,
+          contact: data,
+        });
+      } catch (error) {
+        setState({
+          ...state,
+          loading: false,
+          errorMessage: error.message,
+        });
+      }
+    };
+
+    asyncFetchContact();
+  }, [contactId]);
+
+  let { loading, contact, errorMessage } = state;
     return(
         <React.Fragment>
            <section className='view-contact-intro  p-3'>
