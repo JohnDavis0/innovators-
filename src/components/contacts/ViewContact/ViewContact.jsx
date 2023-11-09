@@ -77,18 +77,6 @@ let ViewContact = () =>   {
                         <li className="list-group-item list-group-item-action">
                           EMAIL : <span className="fw-bold">{contact.email}</span>
                         </li>
-                        <li className="list-group-item list-group-item-action">
-                        COMPANY : <span className="fw-bold">{contact.company.name}</span>
-                        </li>
-                        <li className="list-group-item list-group-item-action">
-                        JOB : <span className="fw-bold">{contact.company.catchPhrase}</span>
-                        </li>
-                        <li className="list-group-item list-group-item-action">
-                        ADD : <span className="fw-bold">{contact.address.street}, {contact.address.city}</span>
-                        </li>
-                        <li className="list-group-item list-group-item-action">
-                        WEBSITE : <span className="fw-bold">{contact.website}</span>
-                        </li>
                       </ul>
                     </div>
                 </div>

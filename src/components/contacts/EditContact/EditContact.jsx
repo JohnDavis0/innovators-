@@ -1,81 +1,85 @@
 import React, { useEffect, useState } from "react";
 import { Link, useParams, useNavigate } from "react-router-dom";
-import { ContactService } from "../../../utils";
 import Spinner from "../../Spinner/Spinner.js";
+import supabase from "../../../backend/supabase.js";
 
 let EditContact = () => {
-
   let navigate = useNavigate();
-  let {contactId} = useParams();
+  let { contactId } = useParams();
 
   let [state, setState] = useState({
-      loading : false,
-      contact:{
+    loading: false,
+    contact: {
       name: "",
       phone: "",
       email: "",
-      },
-      errorMessage:''
+    },
+    errorMessage: '',
   });
 
-  useEffect(()=> {
-    const asyncFetchDailyData = async () => {
+  useEffect(() => {
+    const asyncFetchContact = async () => {
+      try {
+        setState({ ...state, loading: true });
 
-      try{
-         setState({ ...state, loading:true});
-        let response = await ContactService.getContact(contactId);
+        let { data, error } = await supabase
+          .from('UserData')
+          .select('*')
+          .eq('id', contactId)
+          .single();
+
+        if (error) {
+          throw new Error(error.message);
+        }
+
         setState({
           ...state,
-          loading:false,
-          contact: response.data
+          loading: false,
+          contact: data,
+        });
+      } catch (error) {
+        setState({
+          ...state,
+          loading: false,
+          errorMessage: error.message,
         });
       }
-      catch(error){
+    };
 
-        setState({
-          ...state,
-          loading:false,
-          errorMessage:error.message
-        })
-      }
-
-
-    }
-    asyncFetchDailyData ()
+    asyncFetchContact();
   }, [contactId]);
 
- 
-  let updateInput = (event) =>{
-
+  let updateInput = (event) => {
     setState({
-       ...state,
-       contact:{
+      ...state,
+      contact: {
         ...state.contact,
-        [event.target.name]: event.target.value
-       }
+        [event.target.name]: event.target.value,
+      },
     });
   };
 
-  let submitForm = () =>{
-    const dataSubmission = async (event) => {
-  
-      event.preventDefault();
- 
-      try{
-        let response = await ContactService.updateContact(state.contact, contactId);
-        if(response){
-          navigate('/contacts/list', {replace:true});
-        }
-      }catch(error){
-        setState({...state, errorMessage:error.message});
-        navigate(`/contacts/edit/${contactId}`, {replace:false});
+  let submitForm = async () => {
+    try {
+      setState({ ...state, loading: true });
+
+      let { error } = await supabase
+        .from('UserData')
+        .update(state.contact)
+        .eq('id', contactId);
+
+      if (error) {
+        throw new Error(error.message);
       }
-   }; 
- dataSubmission()
+
+      navigate('/contacts/list', { replace: true });
+    } catch (error) {
+      setState({ ...state, errorMessage: error.message });
+      navigate(`/contacts/edit/${contactId}`, { replace: false });
+    }
   };
 
-
-  let {loading, contact, errorMessage} = state;
+  let { loading, contact, errorMessage } = state;
   
   return (
     <React.Fragment>
@@ -117,7 +121,7 @@ let EditContact = () => {
                 </div>
                 <div className="mb-2">
                   <input
-                  required="true"
+                  
                   name="email"
                   value={contact.email}
                   onChange={updateInput}
@@ -128,9 +132,9 @@ let EditContact = () => {
                 </div>
                 
                 
+                
 
               
-
                 <div className="mb-2">
                   <input
                     type="submit"

@@ -30,7 +30,7 @@ function Registration() {
   }
   return (
     <div className="center">
-    <form class="form" onSubmit={handleSubmit}>
+    <form class="form" style={{ backgroundColor: '#212529' }} onSubmit={handleSubmit}>
       {/* Your registration form fields go here */}
 
 
@@ -63,7 +63,7 @@ function Registration() {
         />
       </div>
       {/* Add other registration fields here */}
-      <div class="btn">
+      <div class="text-center mt-3">
         <button type="submit" onClick={handlereg} className="button1">Register</button>
       </div>
     </form>

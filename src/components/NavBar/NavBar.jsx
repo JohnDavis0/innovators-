@@ -4,26 +4,27 @@ let NavBar = ()=>{
     return(
         <React.Fragment>
             <nav class="navbar navbar-dark bg-dark navbar-expand-sm">
-                <div class="container">
-                <a class="navbar-brand" href="/contacts/about">INNOVERTERS</a>
-                </div>
-            </nav>
-            <nav class="navbar navbar-expand-lg bg-body-tertiary">
-                <div class="container-md">
-                    
-                <a class="navbar-brand" href="/contacts/list"><center>CONTACT MANAGER</center></a>
-                    
-                </div>
-                <div className="nav-button"><a href='/login'>logout</a></div>
-            </nav>
+    <div class="container">
+        <a class="navbar-brand nav-link ms-2" href="/contacts/list">CONTACT MANAGER</a>
+        <div class="navbar-nav ms-auto d-flex align-items-center"> 
+            <div class="nav-item mx-2 rounded-pill bg-secondary">
+                <a class="nav-link text-light" href="/contacts/login/registration">Create Account</a>
+            </div>
+           
+            <div class="nav-item mx-2 rounded-pill bg-secondary">
+                <a class="nav-link text-light" href='/login'>Logout</a>
+            </div>
+           
+            <div class="nav-item mx-2 rounded-pill bg-secondary">
+                <a class="nav-link text-light" href="/contacts/about">About Us</a>
+            </div>
+        </div>
+    </div>
+</nav>
+
+
+
 <body>
-    <header>
-        <nav>
-            <ul>
-                <li class="nav-button"><a href="/contacts/login/registration">add new account</a></li>
-            </ul>
-        </nav>
-    </header>
 
 </body>
         </React.Fragment>

@@ -10,6 +10,7 @@ import Spinner from "./components/Spinner/Spinner";
 import Registration from "./components/NavBar/Registration";
 import LoginPage from "./components/NavBar/LoginPage";
 import About from "./components/NavBar/about";
+import supabase from "./backend/supabase";
 let App = () => {
   return (
     <React.Fragment>

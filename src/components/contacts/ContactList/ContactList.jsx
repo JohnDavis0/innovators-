@@ -1,95 +1,109 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import {ContactService} from "../../../utils";
+import supabase from "../../../backend/supabase.js";
 import Spinner from "../../Spinner/Spinner.js";
-import './contactlist.css';
-let ContactList = () => {
 
+let ContactList = () => {
   let [query, setQuery] = useState({
-      text:''
+    text: '',
   });
 
   let [state, setState] = useState({
-    loading : false,
-    contacts : [],
-    filteredContacts : [],
-    errorMessage:''
+    loading: false,
+    contacts: [],
+    filteredContacts: [],
+    errorMessage: '',
   });
-  
-  useEffect(() => {  
-    const asyncFetchDailyData = async () => {
-    try{  
 
-      setState({...state,  loading:true});
+  useEffect(() => {
+    const asyncFetchContacts = async () => {
+      try {
+        setState({ ...state, loading: true });
 
-      let response = await ContactService.getAllContacts();
+        let { data, error } = await supabase
+          .from('UserData')
+          .select('*');
+
+        if (error) {
+          window.alert('Database fetch failed. Please try again later.');
+          throw new Error(error.message);
+        }
+
+        setState({
+          ...state,
+          loading: false,
+          contacts: data,
+          filteredContacts: data,
+        });
+      } catch (error) {
+        setState({
+          ...state,
+          loading: false,
+          errorMessage: error.message,
+        });
+      }
+    };
+
+    asyncFetchContacts();
+  }, []); // Empty dependency array to mimic componentDidMount
+
+  // delete contact
+  let clickDelete = async (contactId) => {
+    try {
+      setState({ ...state, loading: true });
+
+      let { error } = await supabase
+        .from('UserAuth')
+        .delete()
+        .eq('id', contactId);
+
+      if (error) {
+        throw new Error(error.message);
+      }
+
+      let { data: contactsAfterDeletion } = await supabase
+        .from('UserData')
+        .select('*');
 
       setState({
         ...state,
-        loading:false,
-        contacts: response.data,
-        filteredContacts:response.data
-      });  
-
-      } 
-    catch(error){
-      setState( {
-         ...state,
-         loading:false,
-        errorMessage: error.message
-    });
-  }
-}
-  asyncFetchDailyData();
-}, []);
-
-  //delete contact
-  let clickDelete = () => {
-    const asyncDeleteData = async (contactId) => {
-      try {
-        let response = await ContactService.deleteContact(contactId);
-        if(response){
-          setState({...state, loading:true})
-          let response = await ContactService.getAllContacts();
-          setState({
-            ...state,
-            loading:false,
-            contacts:response.data,
-            filteredContacts:response.data
-          })
-        }
-      } catch (error) {
-        setState( {
-          ...state,
-          loading:false,
-         errorMessage: error.message
-     }); 
-      }
+        loading: false,
+        contacts: contactsAfterDeletion,
+        filteredContacts: contactsAfterDeletion,
+      });
+    } catch (error) {
+      setState({
+        ...state,
+        loading: false,
+        errorMessage: error.message,
+      });
     }
-    asyncDeleteData();
   };
 
-  //search contacts
+  // search contacts
   let searchContacts = (event) => {
     setQuery({
       ...query,
-      text: event.target.value
+      text: event.target.value,
     });
 
-    let theContacts = state.contacts.filter(contact =>{
-      return contact.name.toLowerCase().includes(event.target.value.toLowerCase()) 
+    let filteredContacts = state.contacts.filter((contact) => {
+      return contact.name.toLowerCase().includes(event.target.value.toLowerCase());
     });
+
     setState({
-    ...state,
-    filteredContacts: theContacts
+      ...state,
+      filteredContacts: filteredContacts,
     });
   };
 
- let {loading, contacts, errorMessage, filteredContacts} = state;
+  let { loading, filteredContacts } = state;
+
+  console.log('Final Filtered Contacts:', filteredContacts);
 
   return (
     <React.Fragment>
-      <section className="contact-search p-3" className="contact-list">
+      <section className="contact-search p-3">
         <div className="container">
           <div className="grid">
             <div className="row">
