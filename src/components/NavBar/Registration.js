@@ -1,9 +1,10 @@
 // Registration.js
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Navigate, useNavigate } from 'react-router-dom';
 import axios from 'axios'; // Import Axios
 // ...
 import './Loginpage.css';
+import LoginPage from './LoginPage';
 
 function Registration() {
   const [formData, setFormData] = useState({
@@ -24,7 +25,9 @@ function Registration() {
       // Handle registration failure (e.g., display an error message).
     }
   };
-
+  const handlereg = ()=> {
+    Navigate('/login');
+  }
   return (
     <div className="center">
     <form class="form" onSubmit={handleSubmit}>
@@ -61,7 +64,7 @@ function Registration() {
       </div>
       {/* Add other registration fields here */}
       <div class="btn">
-        <button type="submit">Register</button>
+        <button type="submit" onClick={handlereg} className="button1">Register</button>
       </div>
     </form>
   </div>

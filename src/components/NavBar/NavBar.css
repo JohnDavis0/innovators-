@@ -1,0 +1,29 @@
+/* Other styles for your navbar */
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+}
+
+nav ul {
+    list-style-type: none;
+    display: flex;
+}
+
+.nav-button {
+    margin-left: auto; /* This pushes the button to the right */
+}
+
+.nav-button a {
+    display: block;
+    padding: 10px;
+    text-decoration: none;
+    color: #fff; /* Adjust the color based on your design */
+    background-color: #007bff; /* Adjust the background color based on your design */
+    border-radius: 5px;
+}
+
+.nav-button a:hover {
+    background-color: #0056b3; /* Adjust the hover background color based on your design */
+}
