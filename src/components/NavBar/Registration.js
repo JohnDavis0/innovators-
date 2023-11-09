@@ -1,12 +1,12 @@
 // Registration.js
 import React, { useState } from 'react';
-import { Navigate, useNavigate } from 'react-router-dom';
-import axios from 'axios'; // Import Axios
-// ...
+import { useNavigate } from 'react-router-dom';
+import supabase from '../../backend/supabase';
 import './Loginpage.css';
-import LoginPage from './LoginPage';
+
 
 function Registration() {
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     username: '',
     email: '',
@@ -16,18 +16,26 @@ function Registration() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    try {
-      const response = await axios.post('https://your-api-endpoint.com/register', formData);
-      console.log('Registration successful:', response.data);
-      // Redirect to a success page or perform other actions.
-    } catch (error) {
-      console.error('Registration failed:', error);
-      // Handle registration failure (e.g., display an error message).
-    }
+  
+    // Directly insert a new row into the UserAuth table
+    const { data, error } = await supabase
+      .from('UserAuth')
+     .upsert([
+    { username: formData.username, password: formData.password },
+    ], {
+    onConflict: ['username'],
+  });
+
+if (error) {
+  alert('User with the same username already exists. Please choose a different username.');
+  return;
+}
+  
+    // Redirect to a success page or perform other actions.
+    navigate('/login');
   };
-  const handlereg = ()=> {
-    Navigate('/login');
-  }
+  
+ 
   return (
     <div className="center">
     <form class="form" style={{ backgroundColor: '#212529' }} onSubmit={handleSubmit}>
@@ -64,7 +72,7 @@ function Registration() {
       </div>
       {/* Add other registration fields here */}
       <div class="text-center mt-3">
-        <button type="submit" onClick={handlereg} className="button1">Register</button>
+        <button type="submit" onClick={handleSubmit} className="button1">Register</button>
       </div>
     </form>
   </div>

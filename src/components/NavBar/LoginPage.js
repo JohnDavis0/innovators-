@@ -7,26 +7,27 @@ function LoginPage() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
-
+ 
   const fetchUserData = async (userId) => {
     try {
       const { data, error } = await supabase
         .from('UserData')
         .select('*')
-        .eq('user_id', userId); // Assuming there's a column 'user_id' in 'UserData' linking to 'UserAuth' id
-
+        .eq('id', userId)
+        .single();
+  
       if (error) {
         console.error(error);
         return null;
       }
-
-      return data;
+  
+      
     } catch (error) {
       console.error(error);
       return null;
     }
   };
-  
+
   const handleLogin = async (e) => {
     e.preventDefault();
 
@@ -47,7 +48,9 @@ function LoginPage() {
 
       if (users) {
         alert('Login successful!'); 
-        navigate('');
+        const userData = await fetchUserData(users.id);
+        navigate('/contacts/list', {state:{userData}});
+        console.log('Fetched UserData:', userData);
       } else {
         alert('Login failed. Please check your username and password.');
       }

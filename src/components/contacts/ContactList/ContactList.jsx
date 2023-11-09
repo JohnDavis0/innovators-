@@ -2,33 +2,27 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import supabase from "../../../backend/supabase.js";
 import Spinner from "../../Spinner/Spinner.js";
-
 let ContactList = () => {
   let [query, setQuery] = useState({
     text: '',
   });
-
   let [state, setState] = useState({
     loading: false,
     contacts: [],
     filteredContacts: [],
     errorMessage: '',
   });
-
   useEffect(() => {
     const asyncFetchContacts = async () => {
       try {
         setState({ ...state, loading: true });
-
         let { data, error } = await supabase
           .from('UserData')
           .select('*');
-
         if (error) {
           window.alert('Database fetch failed. Please try again later.');
           throw new Error(error.message);
         }
-
         setState({
           ...state,
           loading: false,
@@ -43,28 +37,22 @@ let ContactList = () => {
         });
       }
     };
-
     asyncFetchContacts();
   }, []); // Empty dependency array to mimic componentDidMount
-
   // delete contact
   let clickDelete = async (contactId) => {
     try {
       setState({ ...state, loading: true });
-
       let { error } = await supabase
-        .from('UserAuth')
+        .from('UserData')
         .delete()
         .eq('id', contactId);
-
       if (error) {
         throw new Error(error.message);
       }
-
       let { data: contactsAfterDeletion } = await supabase
         .from('UserData')
         .select('*');
-
       setState({
         ...state,
         loading: false,
@@ -79,28 +67,22 @@ let ContactList = () => {
       });
     }
   };
-
   // search contacts
   let searchContacts = (event) => {
     setQuery({
       ...query,
       text: event.target.value,
     });
-
     let filteredContacts = state.contacts.filter((contact) => {
       return contact.name.toLowerCase().includes(event.target.value.toLowerCase());
     });
-
     setState({
       ...state,
       filteredContacts: filteredContacts,
     });
   };
-
   let { loading, filteredContacts } = state;
-
   console.log('Final Filtered Contacts:', filteredContacts);
-
   return (
     <React.Fragment>
       <section className="contact-search p-3">
@@ -154,7 +136,6 @@ let ContactList = () => {
      
       {
         loading ? <Spinner/> : <React.Fragment>
-
 <section className="contact-list">
   <div className="container">
     <div className="row d-flex">
@@ -185,7 +166,6 @@ let ContactList = () => {
                         </div>
                       </div>
                     </div>
-
                     <div className="col-md-1 d-flex flex-column align-items-center mt-auto">
                       <Link
                         to={`/contacts/view/${contact.id}`}
@@ -201,7 +181,7 @@ let ContactList = () => {
                       </Link>
                       <button
                         className="btn btn-danger my-1"
-                        onClick={() => clickDelete(contact.id)}
+                        onClick={() => clickDelete(contact.id, contact.name)}
                       >
                         <i className="fa fa-trash" />
                       </button>
@@ -215,14 +195,11 @@ let ContactList = () => {
     </div>
   </div>
 </section>
-
       </React.Fragment>
       }
-
       
  
     </React.Fragment>
   )
 };
-
 export default ContactList;

@@ -37,6 +37,7 @@ let AddContact = () => {
         .upsert([state.contact]);
 
       if (error) {
+        alert('Bad REQUEST')
         throw new Error(error.message);
       }
 

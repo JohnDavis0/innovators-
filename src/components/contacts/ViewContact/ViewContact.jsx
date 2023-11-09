@@ -1,50 +1,42 @@
 import React, { useEffect, useState } from 'react';
 import { Link, useParams } from "react-router-dom";
-import supabase from "../../../backend/supabase.js";
+import { ContactService } from '../../../utils';
 import Spinner from '../../Spinner/Spinner';
 
-let ViewContact = () => {
-  let { contactId } = useParams();
+let ViewContact = () =>   {
 
-  let [state, setState] = useState({
-    loading: false,
-    contact: {},
-    errorMessage: "",
-  });
+    let {contactId} = useParams();
 
-  useEffect(() => {
-    const asyncFetchContact = async () => {
-      try {
-        setState({ ...state, loading: true });
+    let [state, setState] = useState({
+       loading: false,
+       contact : {},
+       errorMessage :''
+    });
 
-        let { data, error } = await supabase
-          .from('UserData')
-          .select('*')
-          .eq('id', contactId)
-          .single();
+    useEffect(() => {
+      const asyncFetchDailyData = async () => {
+        try{
+          setState({...state, loading: true});
+          let response = await ContactService.getContact(contactId);
+         setState({
+            ...state, 
+            loading:false,
+            contact : response.data
+         });
 
-        if (error) {
-          throw new Error(error.message);
+        }catch(error){
+
+          setState({
+            ...state, 
+            loading:false,
+            errorMessage: error.message
+         });
         }
-
-        setState({
-          ...state,
-          loading: false,
-          contact: data,
-        });
-      } catch (error) {
-        setState({
-          ...state,
-          loading: false,
-          errorMessage: error.message,
-        });
       }
-    };
+        asyncFetchDailyData()
+    }, [contactId]);
 
-    asyncFetchContact();
-  }, [contactId]);
-
-  let { loading, contact, errorMessage } = state;
+    let { loading, contact, errorMessage} = state;
     return(
         <React.Fragment>
            <section className='view-contact-intro  p-3'>
