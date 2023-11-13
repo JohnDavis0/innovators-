@@ -18,7 +18,7 @@ let App = () => {
         <Route path={"/"} element={<Navigate to={'/login'}/>}/>
         <Route path={"/contacts/list"} element={<ContactList/>}/>
         <Route path={"/contacts/add"} element={<AddContact/>}/>
-        <Route path={"/contacts/view/:table_id"} component={<ViewContact/>} />
+        <Route path={"/contacts/view/:table_id"} element={<ViewContact/>} />
         <Route path={"/contacts/edit/:table_id"} element={<EditContact/>}/>
         <Route path={"/contacts/login"} element={<LoginPage/>}/>
         <Route path={"/contacts/about"} element={<About/>}/>

@@ -1,13 +1,13 @@
-import React, { useEffect, useState } from "react";
-import { Link, useParams, useNavigate } from "react-router-dom";
+import React, { useEffect, useState} from "react";
+import { Link, useParams, useNavigate} from "react-router-dom";
 import Spinner from "../../Spinner/Spinner.js";
 import supabase from "../../../backend/supabase.js";
 
-let EditContact = () => {
-  let navigate = useNavigate();
-  let { table_id } = useParams();
+const EditContact = () => {
+  const navigate = useNavigate();
+  const { table_id } = useParams();
 
-  let [state, setState] = useState({
+  const [state, setState] = useState({
     loading: false,
     contact: {
       name: "",
@@ -17,7 +17,40 @@ let EditContact = () => {
     errorMessage: '',
   });
 
-    let updateInput = (event) => {
+  useEffect(() => {
+    asyncFetchContact();
+  }, [table_id]);
+
+  const asyncFetchContact = async () => {
+    try {
+      setState({ ...state, loading: true });
+
+      let { data, error } = await supabase
+        .from('UserData')
+        .select('*')
+        .eq('table_id', table_id)
+        .single();
+
+      if (error) {
+        throw new Error(error.message);
+      }
+
+      setState({
+        ...state,
+        loading: false,
+        contact: data,
+      });
+    } catch (error) {
+      console.error('Error fetching contact:', error);
+      setState({
+        ...state,
+        loading: false,
+        errorMessage: 'Contact not found.',
+      });
+    }
+  };
+
+  const updateInput = (event) => {
     setState({
       ...state,
       contact: {
@@ -27,14 +60,17 @@ let EditContact = () => {
     });
   };
 
-  let submitForm = async () => {
+  const submitForm = async (event) => {
+    event.preventDefault();
+
     try {
       setState({ ...state, loading: true });
 
       let { error } = await supabase
         .from('UserData')
         .update(state.contact)
-        .eq('table_id', table_id);
+        .eq('table_id', table_id)
+        .single();
 
       if (error) {
         throw new Error(error.message);
@@ -43,10 +79,9 @@ let EditContact = () => {
       navigate('/contacts/list', { replace: true });
     } catch (error) {
       setState({ ...state, errorMessage: error.message });
-      navigate(`/contacts/edit/ `, { replace: false });
+      navigate('/contacts/edit', { replace: true });
     }
   };
-
   let { loading, contact, errorMessage } = state;
   
   return (
@@ -67,7 +102,7 @@ let EditContact = () => {
               <form onSubmit={submitForm}>
                 <div className="mb-2">
                   <input
-                    required="true"
+                    required
                     name="name"
                     value={contact.name}
                     onChange={updateInput}
@@ -78,8 +113,8 @@ let EditContact = () => {
                 </div>
                 <div className="mb-2">
                   <input
-                    required="true"
                     name="phone"
+                    required
                     value={contact.phone}
                     onChange={updateInput}
                     type="text"

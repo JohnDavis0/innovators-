@@ -166,7 +166,7 @@ let ContactList = () => {
                       <i className="fa fa-eye me-1" /> View
                     </Link>
                     <Link
-                      to={`/contacts/view/${contact.table_id}/`}
+                      to={`/contacts/edit/${contact.table_id}/`}
                       className="btn btn-sm btn-outline-primary"
                     >
                       <i className="fa fa-pen me-1" /> Edit
