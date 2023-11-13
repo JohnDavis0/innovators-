@@ -5,7 +5,7 @@ import supabase from "../../../backend/supabase.js";
 
 let EditContact = () => {
   let navigate = useNavigate();
-  let { contactId } = useParams();
+  let { table_id } = useParams();
 
   let [state, setState] = useState({
     loading: false,
@@ -34,7 +34,7 @@ let EditContact = () => {
       let { error } = await supabase
         .from('UserData')
         .update(state.contact)
-        .eq('id', contactId);
+        .eq('table_id', table_id);
 
       if (error) {
         throw new Error(error.message);
@@ -43,7 +43,7 @@ let EditContact = () => {
       navigate('/contacts/list', { replace: true });
     } catch (error) {
       setState({ ...state, errorMessage: error.message });
-      navigate(`/contacts/edit/${contactId}`, { replace: false });
+      navigate(`/contacts/edit/ `, { replace: false });
     }
   };
 

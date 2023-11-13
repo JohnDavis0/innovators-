@@ -1,8 +1,10 @@
-import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import React, { useState, useEffect, } from "react";
+import { Link, useLocation } from "react-router-dom";
 import supabase from "../../../backend/supabase.js";
 import Spinner from "../../Spinner/Spinner.js";
 let ContactList = () => {
+  const { state: { userData } } = useLocation();
+
   let [query, setQuery] = useState({
     text: '',
   });
@@ -12,13 +14,16 @@ let ContactList = () => {
     filteredContacts: [],
     errorMessage: '',
   });
+  const userId = userData.id;
   useEffect(() => {
     const asyncFetchContacts = async () => {
       try {
         setState({ ...state, loading: true });
         let { data, error } = await supabase
           .from('UserData')
-          .select('*');
+          .select('*')
+          .eq('id', userId);
+          
         if (error) {
           window.alert('Database fetch failed. Please try again later.');
           throw new Error(error.message);
@@ -82,7 +87,7 @@ let ContactList = () => {
     });
   };
   let { loading, filteredContacts } = state;
-  console.log('Final Filtered Contacts:', filteredContacts);
+  
   return (
     <React.Fragment>
       <section className="contact-search p-3">
@@ -136,62 +141,48 @@ let ContactList = () => {
      
       {
         loading ? <Spinner/> : <React.Fragment>
-<section className="contact-list">
+<section className="contact-list my-5">
   <div className="container">
-    <div className="row d-flex">
+    <div className="row">
       {filteredContacts.length > 0 &&
-        filteredContacts.map((contact, index) => {
-          return (
-            <div className="col-md-4" key={contact.id}>
-              <div className="d-flex h-100">
-                <div className="card my-2 w-100">
-                  <div className="card-body d-flex flex-column justify-content-between">
-                    <div>
-                      <div className="row align-items-center d-flex justify-content-around">
-                        <div className="col-md-4">
-                          {/* Content related to the contact's image or other details */}
-                        </div>
-                        <div className="col-md-7">
-                          <ul className="list-group">
-                            <li className="list-group-item list-group-item-action">
-                              Name: <span className="fw-bold">{contact.name}</span>
-                            </li>
-                            <li className="list-group-item list-group-item-action">
-                              Mobile: <span className="fw-bold">{contact.phone}</span>
-                            </li>
-                            <li className="list-group-item list-group-item-action">
-                              Email: <span className="fw-bold">{contact.email}</span>
-                            </li>
-                          </ul>
-                        </div>
-                      </div>
-                    </div>
-                    <div className="col-md-1 d-flex flex-column align-items-center mt-auto">
-                      <Link
-                        to={`/contacts/view/${contact.id}`}
-                        className="btn btn-warning my-1"
-                      >
-                        <i className="fa fa-eye" />
-                      </Link>
-                      <Link
-                        to={`/contacts/edit/${contact.id}`}
-                        className="btn btn-primary my-1"
-                      >
-                        <i className="fa fa-pen" />
-                      </Link>
-                      <button
-                        className="btn btn-danger my-1"
-                        onClick={() => clickDelete(contact.table_id)}
-                      >
-                        <i className="fa fa-trash" />
-                      </button>
-                    </div>
+        filteredContacts.map((contact, index) => (
+          <div className="col-md-4" key={contact.id}>
+            <div className="card mb-4 shadow-sm">
+              {/* Content related to the contact's image or other details */}
+              <div className="card-body">
+                <h5 className="card-title">{contact.name}</h5>
+                <p className="card-text">
+                  <strong>Mobile:</strong> {contact.phone}
+                </p>
+                <p className="card-text">
+                  <strong>Email:</strong> {contact.email}
+                </p>
+                <div className="d-flex justify-content-between align-items-center">
+                  <div className="btn-group">
+                    <Link
+                      to={`/contacts/view/${contact.table_id}/`}
+                      className="btn btn-sm btn-outline-warning"
+                    >
+                      <i className="fa fa-eye me-1" /> View
+                    </Link>
+                    <Link
+                      to={`/contacts/view/${contact.table_id}/`}
+                      className="btn btn-sm btn-outline-primary"
+                    >
+                      <i className="fa fa-pen me-1" /> Edit
+                    </Link>
                   </div>
+                  <button
+                    className="btn btn-sm btn-outline-danger"
+                    onClick={() => clickDelete(contact.table_id)}
+                  >
+                    <i className="fa fa-trash me-1" /> Delete
+                  </button>
                 </div>
               </div>
             </div>
-          );
-        })}
+          </div>
+        ))}
     </div>
   </div>
 </section>

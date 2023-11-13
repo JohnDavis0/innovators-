@@ -12,11 +12,7 @@ innovators-
 
 ## Screenshots
 
-![Alt Text](src\assets\img\About Us.png)
-![Alt Text](src\assets\img\Add Contact.png)
-![Alt Text](src\assets\img\Login.png)
-![Alt Text](src\assets\img\Registration.png)
-![Alt Text](src\assets\img\Contact Managment.png)
+
 ## Libraries used
 
 Bootstrap - 5.3.2

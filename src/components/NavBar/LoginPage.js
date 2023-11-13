@@ -11,9 +11,10 @@ function LoginPage() {
   const fetchUserData = async (userId) => {
     try {
       const { data, error } = await supabase
-        .from('UserData')
-        .select('*')
-        .eq('user_id', userId); // Assuming there's a column 'user_id' in 'UserData' linking to 'UserAuth' id
+      .from('UserAuth')
+      .select('id')
+      .eq('username', username)
+      .single(); 
 
       if (error) {
         console.error(error);
@@ -29,7 +30,7 @@ function LoginPage() {
   
   const handleLogin = async (e) => {
     e.preventDefault();
-
+  
     try {
       // Check if the user with the provided username and password exists in the 'UserAuth' table
       const { data: users, error } = await supabase
@@ -38,16 +39,23 @@ function LoginPage() {
         .eq('username', username)
         .eq('password', password)
         .single();
-
+  
       if (error) {
         alert('An error occurred while checking credentials.');
         console.error(error);
         return;
       }
-
+  
       if (users) {
-        alert('Login successful!'); 
-        navigate('/contacts/list');
+        // Fetch user data after successful login
+        const userData = await fetchUserData(users.id);
+        localStorage.setItem('userId', userData);
+        if (userData) {
+          alert('Login successful!'); 
+          navigate('/contacts/list', { state: { userData } });
+        } else {
+          alert('Failed to fetch user data.');
+        }
       } else {
         alert('Login failed. Please check your username and password.');
       }

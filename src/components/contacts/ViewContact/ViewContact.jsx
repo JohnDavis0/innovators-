@@ -3,7 +3,8 @@ import { Link, useParams } from "react-router-dom";
 import Spinner from '../../Spinner/Spinner';
 
 const ViewContact = () => {
-  const { contactId } = useParams();
+  const { table_id } = useParams();
+
 
   const [state, setState] = useState({
     loading: false,
@@ -16,37 +17,37 @@ const ViewContact = () => {
   });
 
   useEffect(() => {
-    const asyncFetchContact = async () => {
-      try {
-        setState({ ...state, loading: true });
-
-        // Assuming 'UserData' table structure includes fields like 'id', 'name', 'phone', 'email'
-        let { data, error } = await supabase
-          .from('UserData')
-          .select('*')
-          .eq('id', contactId)
-          .single();
-
-        if (error) {
-          throw new Error(error.message);
-        }
-
-        setState({
-          ...state,
-          loading: false,
-          contact: data,
-        });
-      } catch (error) {
-        setState({
-          ...state,
-          loading: false,
-          errorMessage: error.message,
-        });
-      }
-    };
-
     asyncFetchContact();
-  }, [contactId]);
+  }, [table_id]);
+
+  const asyncFetchContact = async () => {
+    try {
+      setState({ ...state, loading: true });
+
+      let { data, error } = await supabase
+        .from('UserData')
+        .select('*')
+        .eq('table_id', table_id)
+        .single();
+       
+      if (error) {
+        throw new Error(error.message);
+      }
+
+      setState({
+        ...state,
+        loading: false,
+        contact: data,
+      });
+    } catch (error) {
+      console.error('Error fetching contact:', error);
+      setState({
+        ...state,
+        loading: false,
+        errorMessage: 'Contact not found.',
+      });
+    }
+  };
 
     let { loading, contact, errorMessage} = state;
     return(

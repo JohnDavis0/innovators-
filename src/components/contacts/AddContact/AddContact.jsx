@@ -1,21 +1,27 @@
-import React, { useState , useEffect} from "react";
-import { Link, useNavigate } from "react-router-dom";
-import { ContactService } from "../../../utils";
+import React, { useState, useEffect } from "react";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import supabase from "../../../backend/supabase.js";
 
 let AddContact = () => {
   let navigate = useNavigate();
 
+  const location = useLocation();
+  const userId = location.state && location.state.userData && location.state.userData.id;
+  console.log(userId)
   let [state, setState] = useState({
     loading: false,
     contact: {
-      id:1,
+      id: userId,
       name: "",
       phone: "",
       email: "",
     },
     errorMessage: "",
   });
+
+  useEffect(() => {
+    
+  }, []); 
 
   let updateInput = (event) => {
     setState({
@@ -38,12 +44,15 @@ let AddContact = () => {
         .upsert([state.contact]);
 
       if (error) {
-        alert('Bad REQUEST')
+        console.error("Error during upsert:", error);
+        alert('Bad REQUEST');
         throw new Error(error.message);
       }
 
+      console.log("Contact upserted successfully:", data);
       navigate('/contacts/list', { replace: true });
     } catch (error) {
+      console.error("Error during form submission:", error);
       setState({ ...state, errorMessage: error.message });
       navigate('/contacts/add', { replace: false });
     }
